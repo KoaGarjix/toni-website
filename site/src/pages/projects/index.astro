@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = (await getCollection('projects')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const dateFormatter = new Intl.DateTimeFormat('en', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<BaseLayout title="Projects">
+	<h1>Projects</h1>
+	<p>Curated work, builds, and ideas.</p>
+
+	<ul class="content-list">
+		{projects.map((project) => (
+			<li>
+				<a class="entry-card" href={`/projects/${project.id}`}>
+					<article>
+						<h2>{project.data.title}</h2>
+						<p class="entry-description">{project.data.description}</p>
+
+						<p class="entry-meta">
+							<time datetime={project.data.date.toISOString()}>
+								{dateFormatter.format(project.data.date)}
+							</time>
+							<span class="entry-status">{project.data.status}</span>
+						</p>
+
+						<ul class="tag-list" aria-label={`Tags for ${project.data.title}`}>
+							{project.data.tags.map((tag) => (
+								<li>{tag}</li>
+							))}
+						</ul>
+
+						<p class="entry-link">Read project</p>
+					</article>
+				</a>
+			</li>
+		))}
+	</ul>
+</BaseLayout>

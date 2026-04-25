@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = (await getCollection('projects')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const labEntries = (await getCollection('lab')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const latestProject = projects[0];
+const latestLabEntry = labEntries[0];
+
+const dateFormatter = new Intl.DateTimeFormat('en', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<BaseLayout>
+	<section aria-labelledby="intro-title">
+		<h1 id="intro-title">Toni Vähäkuopus</h1>
+		<p>
+			A personal website for work, projects, experiments, and future notes.
+			This first version keeps the structure simple, readable, and easy to build on.
+		</p>
+	</section>
+
+	<section aria-labelledby="projects-preview-title">
+		<h2 id="projects-preview-title">Projects</h2>
+		<p>Curated work, builds, and ideas.</p>
+
+		{latestProject ? (
+			<ul class="content-list">
+				<li>
+					<a class="entry-card" href={`/projects/${latestProject.id}`}>
+						<article>
+							<h3>{latestProject.data.title}</h3>
+							<p class="entry-description">{latestProject.data.description}</p>
+
+							<p class="entry-meta">
+								<time datetime={latestProject.data.date.toISOString()}>
+									{dateFormatter.format(latestProject.data.date)}
+								</time>
+								<span class="entry-status">{latestProject.data.status}</span>
+							</p>
+
+							<ul class="tag-list" aria-label={`Tags for ${latestProject.data.title}`}>
+								{latestProject.data.tags.map((tag) => (
+									<li>{tag}</li>
+								))}
+							</ul>
+
+							<p class="entry-link">Read project</p>
+						</article>
+					</a>
+				</li>
+			</ul>
+		) : (
+			<p>No projects have been added yet.</p>
+		)}
+	</section>
+
+	<section aria-labelledby="lab-preview-title">
+		<h2 id="lab-preview-title">Lab</h2>
+		<p>Experiments, drafts, and learning notes.</p>
+
+		{latestLabEntry ? (
+			<ul class="content-list">
+				<li>
+					<a class="entry-card" href={`/lab/${latestLabEntry.id}`}>
+						<article>
+							<h3>{latestLabEntry.data.title}</h3>
+							<p class="entry-description">{latestLabEntry.data.description}</p>
+
+							<p class="entry-meta">
+								<time datetime={latestLabEntry.data.date.toISOString()}>
+									{dateFormatter.format(latestLabEntry.data.date)}
+								</time>
+								<span class="entry-status">{latestLabEntry.data.status}</span>
+							</p>
+
+							<ul class="tag-list" aria-label={`Tags for ${latestLabEntry.data.title}`}>
+								{latestLabEntry.data.tags.map((tag) => (
+									<li>{tag}</li>
+								))}
+							</ul>
+
+							<p class="entry-link">Read note</p>
+						</article>
+					</a>
+				</li>
+			</ul>
+		) : (
+			<p>No lab entries have been added yet.</p>
+		)}
+	</section>
+</BaseLayout>

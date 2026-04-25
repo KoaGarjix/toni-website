@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const labEntries = await getCollection('lab');
+
+	return labEntries.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const dateFormatter = new Intl.DateTimeFormat('en', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<BaseLayout title={entry.data.title}>
+	<article class="entry-page">
+		<header class="entry-header">
+			<p><a class="back-link" href="/lab">Back to Lab</a></p>
+			<h1>{entry.data.title}</h1>
+			<p class="entry-description">{entry.data.description}</p>
+
+			<p class="entry-meta">
+				<time datetime={entry.data.date.toISOString()}>
+					{dateFormatter.format(entry.data.date)}
+				</time>
+				<span class="entry-status">{entry.data.status}</span>
+			</p>
+
+			<ul class="tag-list" aria-label={`Tags for ${entry.data.title}`}>
+				{entry.data.tags.map((tag) => (
+					<li>{tag}</li>
+				))}
+			</ul>
+		</header>
+
+		<div class="entry-content">
+			<Content />
+		</div>
+	</article>
+</BaseLayout>

@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const dateFormatter = new Intl.DateTimeFormat('en', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<BaseLayout title={project.data.title}>
+	<article class="entry-page">
+		<header class="entry-header">
+			<p><a class="back-link" href="/projects">Back to Projects</a></p>
+			<h1>{project.data.title}</h1>
+			<p class="entry-description">{project.data.description}</p>
+
+			<p class="entry-meta">
+				<time datetime={project.data.date.toISOString()}>
+					{dateFormatter.format(project.data.date)}
+				</time>
+				<span class="entry-status">{project.data.status}</span>
+			</p>
+
+			<ul class="tag-list" aria-label={`Tags for ${project.data.title}`}>
+				{project.data.tags.map((tag) => (
+					<li>{tag}</li>
+				))}
+			</ul>
+		</header>
+
+		<div class="entry-content">
+			<Content />
+		</div>
+	</article>
+</BaseLayout>

@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const labEntries = (await getCollection('lab')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const dateFormatter = new Intl.DateTimeFormat('en', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<BaseLayout title="Lab">
+	<h1>Lab</h1>
+	<p>Experiments, drafts, learning notes, and AI-assisted builds.</p>
+
+	<ul class="content-list">
+		{labEntries.map((entry) => (
+			<li>
+				<a class="entry-card" href={`/lab/${entry.id}`}>
+					<article>
+						<h2>{entry.data.title}</h2>
+						<p class="entry-description">{entry.data.description}</p>
+
+						<p class="entry-meta">
+							<time datetime={entry.data.date.toISOString()}>
+								{dateFormatter.format(entry.data.date)}
+							</time>
+							<span class="entry-status">{entry.data.status}</span>
+						</p>
+
+						<ul class="tag-list" aria-label={`Tags for ${entry.data.title}`}>
+							{entry.data.tags.map((tag) => (
+								<li>{tag}</li>
+							))}
+						</ul>
+
+						<p class="entry-link">Read note</p>
+					</article>
+				</a>
+			</li>
+		))}
+	</ul>
+</BaseLayout>
