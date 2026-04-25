@@ -1,4 +1,4 @@
-# PLANERING.md
+#PLANNING.md
 
 ## Project Purpose
 
