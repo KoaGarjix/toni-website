@@ -3,6 +3,66 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="About">
-	<h1>About</h1>
-	<p>A clean introduction to Toni, work background, technical interests, and personal interests.</p>
+	<section aria-labelledby="about-title">
+		<h1 id="about-title">About</h1>
+		<p class="entry-description">GIS specialist, technical tinkerer and lifelong learner.</p>
+
+		<p>
+			Hi, I am Toni. Based in Sweden, working with GIS analysis and development.
+			I tend to gravitate towards clear structures, useful tools, and practical
+			problem solving that makes everyday work a bit smoother.
+		</p>
+	</section>
+
+	<section aria-labelledby="gis-title">
+		<h2 id="gis-title">Work with GIS and geodata</h2>
+		<p>
+			My work is centered around geodata, spatial data, maps, data maintenance,
+			and automation. I use tools like QGIS, FME, NVDB, and related GIS workflows
+			to keep data reliable and actually useful.
+		</p>
+		<p>
+			What I enjoy most is the mix of analysis, development, and systems thinking.
+			Good spatial data should not just exist — it should be understandable,
+			trustworthy, and genuinely helpful for the people who rely on it.
+		</p>
+	</section>
+
+	<section aria-labelledby="technical-interests-title">
+		<h2 id="technical-interests-title">Technical interests</h2>
+		<p>
+			Outside of GIS, I spend a lot of time exploring Linux, Docker, Proxmox,
+			Python, Raspberry Pi, home servers, automation, and AI tools. I enjoy
+			figuring out how systems connect and how small improvements can remove
+			repetitive work.
+		</p>
+		<p>
+			I would describe myself as calm, grounded, and goal-oriented. I like
+			understanding problems properly before trying to solve them — and keeping
+			a bit of humor around when things inevitably break the first few times.
+		</p>
+	</section>
+
+	<section aria-labelledby="learning-title">
+		<h2 id="learning-title">Learning and building</h2>
+		<p>
+			Learning and experimenting are a big part of how I stay motivated. I prefer
+			building simple foundations first, then improving them step by step as the
+		 needs become clearer.
+		</p>
+		<p>
+			AI tools are part of that process. I use them for learning, structuring
+			ideas, and building things more thoughtfully rather than faster just for
+			the sake of it.
+		</p>
+	</section>
+
+	<section aria-labelledby="contact-title">
+		<h2 id="contact-title">Contact and links</h2>
+		<p>You can find Toni on GitHub and LinkedIn.</p>
+		<ul>
+			<li><a href="https://github.com/KoaGarjix/">GitHub</a></li>
+			<li><a href="https://www.linkedin.com/in/toni-v%C3%A4h%C3%A4kuopus/">LinkedIn</a></li>
+		</ul>
+	</section>
 </BaseLayout>
