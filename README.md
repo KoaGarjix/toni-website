@@ -7,7 +7,7 @@ This repository contains the foundation for a static-first personal website buil
 ```text
 .
 ├── docs/
-│   ├── planning.md
+│   ├── PLANNING.md
 │   ├── AI_INSTRUCTIONS.md
 │   └── CONTENT_GUIDE.md
 └── site/
@@ -32,6 +32,10 @@ npm run dev
 
 Astro will print the local URL, usually `http://localhost:4321/`.
 
+## Deployment
+
+The site is deployed through Cloudflare Pages. Build the Astro project from `site/` and publish the generated `site/dist/` output.
+
 ## Content
 
 Markdown content lives in:
@@ -53,4 +57,4 @@ Project entries are listed at `/projects` and have detail pages at `/projects/[s
 
 ## Docs
 
-The `docs/` folder contains planning notes, AI working instructions, and the content guide. Use those files as the source of direction for structure, tone, and content decisions.
+The `docs/` folder contains planning notes, AI working instructions, and the content guide. Use `docs/PLANNING.md`, `docs/AI_INSTRUCTIONS.md`, and `docs/CONTENT_GUIDE.md` as the source of direction for structure, tone, and content decisions.
