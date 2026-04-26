@@ -58,3 +58,31 @@ Project entries are listed at `/projects` and have detail pages at `/projects/[s
 ## Docs
 
 The `docs/` folder contains planning notes, AI working instructions, and the content guide. Use `docs/PLANNING.md`, `docs/AI_INSTRUCTIONS.md`, and `docs/CONTENT_GUIDE.md` as the source of direction for structure, tone, and content decisions.
+
+## Where to edit things
+
+Common tasks and where to do them:
+
+- Add a new project:
+  `site/src/content/projects/`
+
+- Add a new lab entry:
+  `site/src/content/lab/`
+
+- Edit the About page:
+  `site/src/pages/about.astro`
+
+- Edit the Contact page:
+  `site/src/pages/contact.astro`
+
+- Edit the homepage:
+  `site/src/pages/index.astro`
+
+- Change layout, navigation or global styles:
+  `site/src/layouts/BaseLayout.astro`
+
+- Project planning and structure:
+  `docs/PLANNING.md`
+
+  - Templates for new entries:
+  `site/src/content/templates/`
